@@ -4,12 +4,12 @@ jpg,png,gif(アニメーションgif)に対応しています。
 
 ## インストール
 ```bash
-$ go get github.com/so-ta/go-image-optimaze
+$ go get github.com/so-ta/imageoptimaze
 ```
 
 ## 使い方
 ```bash
-import "github.com/so-ta/go-image-optimaze"
+import "github.com/so-ta/imageoptimaze"
 ```
 
 `imageoptimize.GenerateOriginalImage(file []byte) (OriginalImage, error)` または
