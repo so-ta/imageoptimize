@@ -22,8 +22,8 @@ import "github.com/so-ta/go-image-optimaze"
 
 ## サンプル
 ```go
-originalImage, _ := OpenFile("sample.gif")
-resizedImage, _ := ResizeAndCompress(originalImage, 500, 500, AspectFit, VerticalAlignmentCenter, HorizontalAlignmentCenter)
+originalImage, _ := imageoptimize.OpenFile("sample.gif")
+resizedImage, _ := imageoptimize.ResizeAndCompress(originalImage, 500, 500, AspectFit, VerticalAlignmentCenter, HorizontalAlignmentCenter)
 ```
 
 `contentMode` には `ScaleToFill` , `AspectFit` , `AspectFill` が指定できます。
@@ -33,8 +33,8 @@ resizedImage, _ := ResizeAndCompress(originalImage, 500, 500, AspectFit, Vertica
 ## おまけ
 リサイズ後ファイルを保存したい
 ```go
-originalImage, _ := OpenFile("sample.png")
-resizedImage, _ := ResizeAndCompress(originalImage, 500, 500, AspectFit, VerticalAlignmentCenter, HorizontalAlignmentCenter)
+originalImage, _ := imageoptimize.OpenFile("sample.png")
+resizedImage, _ := imageoptimize.ResizeAndCompress(originalImage, 500, 500, AspectFit, VerticalAlignmentCenter, HorizontalAlignmentCenter)
 file, _ := os.Create(`sample-resized.png`)
 defer file.Close()
 file.Write(resizedImage)
