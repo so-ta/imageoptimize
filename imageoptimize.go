@@ -16,19 +16,9 @@ import (
 	"io/ioutil"
 
 	"math"
-	"os"
 
 	"github.com/nfnt/resize"
 )
-
-func main() {
-	originalImage, _ := OpenFile("sample.png")
-	//resizedImage, _ := ResizeAndCompress(originalImage, 500, 500, AspectFit, VerticalAlignmentCenter, HorizontalAlignmentCenter)
-	resizedImage, _ := ThumbnailAndCompress(originalImage, 100, 100)
-	file, _ := os.Create(`sample-resized.png`)
-	defer file.Close()
-	file.Write(resizedImage)
-}
 
 type ContentMode int
 
