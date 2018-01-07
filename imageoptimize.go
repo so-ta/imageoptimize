@@ -1,4 +1,4 @@
-package imageoptimize
+package main
 
 import (
 	"errors"
@@ -15,8 +15,20 @@ import (
 
 	"io/ioutil"
 
+	"math"
+	"os"
+
 	"github.com/nfnt/resize"
 )
+
+func main() {
+	originalImage, _ := OpenFile("sample.png")
+	//resizedImage, _ := ResizeAndCompress(originalImage, 500, 500, AspectFit, VerticalAlignmentCenter, HorizontalAlignmentCenter)
+	resizedImage, _ := ThumbnailAndCompress(originalImage, 100, 100)
+	file, _ := os.Create(`sample-resized.png`)
+	defer file.Close()
+	file.Write(resizedImage)
+}
 
 type ContentMode int
 
@@ -247,6 +259,26 @@ func ResizeAndCompress(originalImage OriginalImage, width uint, height uint, con
 		return nil, errors.New("Unsupported file type")
 	}
 	return resultImage.Bytes(), nil
+}
+
+func ThumbnailAndCompress(originalImage OriginalImage, maxWidth uint, maxHeight uint) ([]byte, error) {
+	widthScale := float64(maxWidth) / float64(originalImage.imageConfig.Width)
+	heightScale := float64(maxHeight) / float64(originalImage.imageConfig.Height)
+	if maxWidth == 0 {
+		widthScale = 1
+	}
+	if maxHeight == 0 {
+		heightScale = 1
+	}
+	minScale := math.Min(widthScale, heightScale)
+	minScale = math.Min(1, minScale)
+	width := uint(float64(originalImage.imageConfig.Width) * float64(minScale))
+	height := uint(float64(originalImage.imageConfig.Height) * float64(minScale))
+	return ResizeAndCompress(originalImage, width, height, ScaleToFill, VerticalAlignmentCenter, HorizontalAlignmentCenter)
+}
+
+func Compress(originalImage OriginalImage) ([]byte, error) {
+	return ResizeAndCompress(originalImage, uint(originalImage.imageConfig.Width), uint(originalImage.imageConfig.Height), ScaleToFill, VerticalAlignmentCenter, HorizontalAlignmentCenter)
 }
 
 // Check if color is already in the Palette
