@@ -1,15 +1,15 @@
-# GoImageOptimaze
+# GoImageOptimize
 画像を圧縮，リサイズ，クリッピングすることができます。  
 jpg,png,gif(アニメーションgif)に対応しています。  
 
 ## インストール
 ```bash
-$ go get github.com/so-ta/imageoptimaze
+$ go get github.com/so-ta/imageoptimize
 ```
 
 ## 使い方
 ```bash
-import "github.com/so-ta/imageoptimaze"
+import "github.com/so-ta/imageoptimize"
 ```
 
 `imageoptimize.GenerateOriginalImage(file []byte) (OriginalImage, error)` または  
